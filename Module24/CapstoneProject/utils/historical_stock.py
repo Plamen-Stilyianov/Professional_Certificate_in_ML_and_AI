@@ -17,15 +17,11 @@ year = datetime.now().year
 
 # Set the start time
 start_time = pd.to_datetime("2015-01-15").tz_localize('America/New_York')
-end_time = datetime.fromisoformat(f'{year}-{month}-{day}T00:00:00')
+#end_time = datetime.fromisoformat(f'{year}-{month}-{day}T00:00:00')
+end_time = pd.to_datetime("2025-04-25").tz_localize('America/New_York')
 
 # It's generally best to explicitly provide an end time but will default to 'now' if not
-request_params = StockBarsRequest(
-    symbol_or_symbols=['JPM'],
-    timeframe=TimeFrame.Day,
-    start=start_time,
-    end=end_time
-    )
+request_params = StockBarsRequest( symbol_or_symbols=['JPM'], timeframe=TimeFrame.Day, start=start_time, end=end_time )
 
 bars_df = data_client.get_stock_bars(request_params).df.tz_convert('America/New_York', level=1)
 bars_df.to_csv(f'../data/jpm_bars_{year}-{month}-{day}.csv', index=True)

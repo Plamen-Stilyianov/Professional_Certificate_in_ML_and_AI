@@ -39,7 +39,7 @@ while page_token is not None:
 
     respond = client.get_news(request_params)
 
-    news_data = respond.news
+    news_data = respond.data['news']
     for news in news_data:
         created_at = news.created_at.isoformat().split('+')[0].replace('T',' ')
         headline = news.headline

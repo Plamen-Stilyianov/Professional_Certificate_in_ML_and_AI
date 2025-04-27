@@ -1,16 +1,16 @@
 import warnings
 from transformers import pipeline
-from alpaca_trade_api import Stream
-from alpaca_trade_api.common import URL
+
+from alpaca.data.live.news import NewsDataStream
 
 from decouple import config
 
 warnings.filterwarnings("ignore")
 api_key = config("ALPACA_KEY")
 secret_key = config("ALPACA_SECRET")
-live_news_url = config("ALPACA_WSS_URL")
+# live_news_url = config("ALPACA_WSS_URL")
 
-wss_client = Stream(key_id=api_key, secret_key=secret_key, data_stream_url=URL(live_news_url))
+wss_client = NewsDataStream(api_key=api_key, secret_key=secret_key) # url_override=URL(live_news_url))
 
 classifier = pipeline('sentiment-analysis', model='distilbert-base-uncased-finetuned-sst-2-english')
 
